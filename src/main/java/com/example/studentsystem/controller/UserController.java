@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.studentsystem.model.User;
 import com.example.studentsystem.service.UserService;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:3000") // Replace with your frontend URL
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -30,8 +30,10 @@ public class UserController {
         return ResponseEntity.ok(UserService.addUser(user));
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
+        System.out.println("Received user update request: " + user);
         return ResponseEntity.ok(UserService.updateUser(id, user));
     }
 
