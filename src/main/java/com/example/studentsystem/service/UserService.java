@@ -6,7 +6,6 @@ import com.example.studentsystem.model.User;
 import com.example.studentsystem.repository.UserRepository;
 
 import java.util.List;
-
 @Service
 public class UserService {
 
