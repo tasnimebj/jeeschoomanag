@@ -4,52 +4,48 @@ import com.example.studentsystem.model.Professor;
 import com.example.studentsystem.model.User;
 import com.example.studentsystem.repository.ProfessorRepository;
 import com.example.studentsystem.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional
+
 public class ProfessorService {
 
     @Autowired
     private ProfessorRepository professorRepository;
 
-    @Autowired
-    private UserRepository userRepository; // Inject UserRepository
+    // Create a new professor
+    public Professor createProfessor(Professor professor) {
+        return professorRepository.save(professor);
+    }
 
+    // Get all professors
     public List<Professor> getAllProfessors() {
         return professorRepository.findAll();
     }
 
-    public Professor addProfessor(Professor professor) {
-        // Check if the user exists
-        User user = userRepository.findById(professor.getUser().getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Set the user for the professor
-        professor.setUser(user);
-
-        // Save and return the professor
-        return professorRepository.save(professor);
+    // Get a professor by ID
+    public Optional<Professor> getProfessorById(int professorId) {
+        return professorRepository.findById(professorId);
     }
 
-
-    public Professor updateProfessor(int id, Professor professorDetails) {
-        Professor professor = professorRepository.findById(id).orElseThrow(() -> new RuntimeException("Professor not found"));
-        professor.setProfessorFname(professorDetails.getProfessorFname());
-        professor.setProfessorLname(professorDetails.getProfessorLname());
-        professor.setCodeProfessor(professorDetails.getCodeProfessor());
-        professor.setSpecialty(professorDetails.getSpecialty());
-        return professorRepository.save(professor);
+    // Update an existing professor
+    public Professor updateProfessor(int professorId, Professor professor) {
+        if (professorRepository.existsById(professorId)) {
+            professor.setProfessorId((long) professorId);
+            return professorRepository.save(professor);
+        } else {
+            return null;
+        }
     }
 
-    public void deleteProfessor(Long id) {
-        Professor professor = professorRepository.findById(Math.toIntExact(id))
-                .orElseThrow(() -> new RuntimeException("Professor not found"));
-
-        // Perform cleanup or checks if needed (e.g., detach from related entities)
-        professorRepository.delete(professor);
+    // Delete a professor by ID
+    public void deleteProfessor(int professorId) {
+        professorRepository.deleteById(professorId);
     }
-
 }
