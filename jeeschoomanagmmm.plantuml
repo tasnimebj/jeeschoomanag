@@ -1,0 +1,29 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Administrator {
+  - administratorLname: String
+  - administratorFname: String
+  - administratorId: int
+  - code: String
+}
+class Professor {
+  - professorId: int
+  - user: User
+  - professorFname: String
+  - specialty: String
+  - professorLname: String
+  - codeProfessor: String
+}
+class User {
+  - role: Role
+  - username: String
+  - userId: int
+  - password: String
+}
+
+Professor     "1" *-[#595959,plain]-> "user\n1" User          
+@enduml

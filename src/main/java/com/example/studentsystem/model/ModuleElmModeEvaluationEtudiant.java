@@ -1,0 +1,105 @@
+package com.example.studentsystem.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "moduleElm_mode_evaluation_étudiant")
+public class ModuleElmModeEvaluationEtudiant {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+
+        @ManyToOne
+        @JoinColumn(name="element_id")
+        private ElementModule element;
+
+        @ManyToOne
+        @JoinColumn(name="etudiant_id")
+        private Etudiant etudiant;
+
+        private double noteElement;
+
+        @ManyToOne
+        @JoinColumn(name="modalite_id")
+        private ModaliteEvaluation modalite;
+
+
+
+        public ModuleElmModeEvaluationEtudiant() {
+            // TODO Auto-generated constructor stub
+        }
+
+
+
+        public ModuleElmModeEvaluationEtudiant(Long id, ElementModule element, Etudiant etudiant, double noteElement, ModaliteEvaluation modalite) {
+            this.id = id;
+            this.element = element;
+            this.etudiant = etudiant;
+            this.noteElement = noteElement;
+            this.modalite = modalite;
+        }
+
+
+
+        public Long getId() {
+            return id;
+        }
+
+
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+
+
+        public ElementModule getElement() {
+            return element;
+        }
+
+
+
+        public void setElement(ElementModule element) {
+            this.element = element;
+        }
+
+
+
+        public Etudiant getEtudiant() {
+            return etudiant;
+        }
+
+
+
+        public void setEtudiant(Etudiant etudiant) {
+            this.etudiant = etudiant;
+        }
+
+
+
+        public double getNoteElement() {
+            return noteElement;
+        }
+
+
+
+        public void setNoteElement(double noteElement) {
+            this.noteElement = noteElement;
+        }
+
+
+
+        public ModaliteEvaluation getModalite() {
+            return modalite;
+        }
+
+
+
+        public void setModalite(ModaliteEvaluation modalite) {
+            this.modalite = modalite;
+        }
+
+
+
+    }
