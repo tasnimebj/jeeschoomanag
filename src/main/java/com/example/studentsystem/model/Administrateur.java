@@ -1,5 +1,6 @@
 package com.example.studentsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,6 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "Administrateur")
 public class Administrateur {
+    @JsonIgnore
 
 
     @Id

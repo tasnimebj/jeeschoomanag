@@ -1,9 +1,11 @@
 package com.example.studentsystem.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) // Creates separate tables for each subclass
 public abstract class Utilisateur {
+    @JsonIgnore
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

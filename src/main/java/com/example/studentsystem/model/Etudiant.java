@@ -1,11 +1,15 @@
 package com.example.studentsystem.model;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
 @Table
 public class Etudiant {
+    @JsonIgnore
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generation ID
     private Long codeEtudiant;
