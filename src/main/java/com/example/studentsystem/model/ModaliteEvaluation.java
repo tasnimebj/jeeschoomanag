@@ -14,20 +14,20 @@ public class ModaliteEvaluation {
         private double coefficient;
 
         @OneToMany(mappedBy = "modalite")
-        private List<ModuleElmModeEvaluationEtudiant> notes;
+        private List<NoteElement> notes;
 
         public ModaliteEvaluation() {
                 // TODO Auto-generated constructor stub
         }
 
-        public ModaliteEvaluation(Long id, String typeModalite, double coefficient, List<ModuleElmModeEvaluationEtudiant> notes) {
+        public ModaliteEvaluation(Long id, String typeModalite, double coefficient, List<NoteElement> notes) {
                 this.id = id;
                 this.typeModalite = typeModalite;
                 this.coefficient = coefficient;
                 this.notes = notes;
         }
 
-        public ModaliteEvaluation(String typeModalite, double coefficient, List<ModuleElmModeEvaluationEtudiant> notes) {
+        public ModaliteEvaluation(String typeModalite, double coefficient, List<NoteElement> notes) {
                 this.typeModalite = typeModalite;
                 this.coefficient = coefficient;
                 this.notes = notes;
@@ -71,11 +71,11 @@ public class ModaliteEvaluation {
                 this.coefficient = coefficient;
         }
 
-        public List<ModuleElmModeEvaluationEtudiant> getNotes() {
+        public List<NoteElement> getNotes() {
                 return notes;
         }
 
-        public void setNotes(List<ModuleElmModeEvaluationEtudiant> notes) {
+        public void setNotes(List<NoteElement> notes) {
                 this.notes = notes;
         }
 

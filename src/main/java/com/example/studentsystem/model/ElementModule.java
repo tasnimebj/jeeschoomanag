@@ -22,14 +22,13 @@ public class ElementModule {
     private Professeur professeur;
 
     @OneToMany(mappedBy = "element")
-    private List<ModuleElmModeEvaluationEtudiant> notes;
+    private List<NoteElement> notes;
 
     public ElementModule() {
-        // TODO Auto-generated constructor stub
     }
 
     public ElementModule(Long idElement, String nomElement, double coefficient, Module module, Professeur professeur,
-                   List<ModuleElmModeEvaluationEtudiant> notes) {
+                   List<NoteElement> notes) {
         this.idElement = idElement;
         this.nomElement = nomElement;
         this.coefficient = coefficient;
@@ -39,7 +38,7 @@ public class ElementModule {
     }
 
     public ElementModule(String nomElement, double coefficient, Module module, Professeur professeur,
-                   List<ModuleElmModeEvaluationEtudiant> notes) {
+                   List<NoteElement> notes) {
         this.nomElement = nomElement;
         this.coefficient = coefficient;
         this.module = module;
@@ -94,11 +93,11 @@ public class ElementModule {
         this.professeur = professeur;
     }
 
-    public List<ModuleElmModeEvaluationEtudiant> getNotes() {
+    public List<NoteElement> getNotes() {
         return notes;
     }
 
-    public void setNotes(List<ModuleElmModeEvaluationEtudiant> notes) {
+    public void setNotes(List<NoteElement> notes) {
         this.notes = notes;
     }
 

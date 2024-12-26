@@ -3,8 +3,7 @@ package com.example.studentsystem.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "moduleElm_mode_evaluation_étudiant")
-public class ModuleElmModeEvaluationEtudiant {
+public class NoteElement {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +25,13 @@ public class ModuleElmModeEvaluationEtudiant {
 
 
 
-        public ModuleElmModeEvaluationEtudiant() {
+        public NoteElement() {
             // TODO Auto-generated constructor stub
         }
 
 
 
-        public ModuleElmModeEvaluationEtudiant(Long id, ElementModule element, Etudiant etudiant, double noteElement, ModaliteEvaluation modalite) {
+        public NoteElement(Long id, ElementModule element, Etudiant etudiant, double noteElement, ModaliteEvaluation modalite) {
             this.id = id;
             this.element = element;
             this.etudiant = etudiant;

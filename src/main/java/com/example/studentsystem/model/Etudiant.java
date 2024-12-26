@@ -21,13 +21,13 @@ public class Etudiant {
     private Semestre semestre;
 
     @OneToMany(mappedBy = "etudiant")
-    private List<ModuleElmModeEvaluationEtudiant> notes;
+    private List<NoteElement> notes;
 
     public Etudiant() {
         // Constructeur par défaut
     }
 
-    public Etudiant(String nomEtudiant, String prenomEtudiant, Filiere filiere, Semestre semestre, List<ModuleElmModeEvaluationEtudiant> notes) {
+    public Etudiant(String nomEtudiant, String prenomEtudiant, Filiere filiere, Semestre semestre, List<NoteElement> notes) {
         this.nomEtudiant = nomEtudiant;
         this.prenomEtudiant = prenomEtudiant;
         this.filiere = filiere;
@@ -90,11 +90,11 @@ public class Etudiant {
         this.semestre = semestre;
     }
 
-    public List<ModuleElmModeEvaluationEtudiant> getNotes() {
+    public List<NoteElement> getNotes() {
         return notes;
     }
 
-    public void setNotes(List<ModuleElmModeEvaluationEtudiant> notes) {
+    public void setNotes(List<NoteElement> notes) {
         this.notes = notes;
     }
 }
