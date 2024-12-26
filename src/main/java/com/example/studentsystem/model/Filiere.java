@@ -4,12 +4,14 @@ import java.util.List;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "elementModules"})
+
 public class Filiere {
-    @JsonIgnore
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +19,12 @@ public class Filiere {
     private String nomFiliere;
 
     @OneToMany(mappedBy = "filiere")
+    @JsonIgnore // Prevents cyclic references during serialization
 
     private List<Etudiant> etudiants;
 
     @OneToMany(mappedBy = "filiere")
+    @JsonIgnore // Prevents cyclic references during serialization
 
     private List<Module> module;
 

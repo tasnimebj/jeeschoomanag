@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 @Entity
 @Table
 public class ModaliteEvaluation {
-        @JsonIgnore
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -16,7 +16,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Module {
-    @JsonIgnore
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,16 +23,21 @@ public class Module {
     private String nomModule;
 
     @ManyToOne
+    @JsonIgnore // Prevents cyclic references during serialization
+
     @JoinColumn(name="semestre_id")
 
     private Semestre semestre;
 
     @ManyToOne
+    @JsonIgnore // Prevents cyclic references during serialization
+
     @JoinColumn(name="Filiere_id")
 
     private Filiere filiere;
 
     @OneToMany(mappedBy = "module")
+    @JsonIgnore // Prevents cyclic references during serialization
 
     private List<ElementModule> elements;
 

@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 @Entity
 @Table
 public class Semestre {
-    @JsonIgnore
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +16,12 @@ public class Semestre {
     private String nom;
 
     @OneToMany(mappedBy = "semestre")
+    @JsonIgnore // Prevents cyclic references during serialization
 
     private List<Module> modules;
 
     @OneToMany(mappedBy = "semestre")
+    @JsonIgnore // Prevents cyclic references during serialization
 
     private List<Etudiant> etudiants;
 

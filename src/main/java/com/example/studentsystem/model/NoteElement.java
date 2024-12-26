@@ -1,11 +1,12 @@
 package com.example.studentsystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
+
 public class NoteElement {
-    @JsonIgnore
 
 
     @Id

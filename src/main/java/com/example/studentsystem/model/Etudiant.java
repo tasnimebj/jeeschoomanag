@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 @Entity
 @Table
 public class Etudiant {
-    @JsonIgnore
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generation ID

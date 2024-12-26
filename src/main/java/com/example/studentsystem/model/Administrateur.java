@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "Administrateur")
 public class Administrateur {
-    @JsonIgnore
 
 
     @Id
