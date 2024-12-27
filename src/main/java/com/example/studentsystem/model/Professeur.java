@@ -3,12 +3,11 @@ package com.example.studentsystem.model;
 import java.util.List;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
 @Entity
 @Table(name = "Professeur")
@@ -25,7 +24,9 @@ public class Professeur {
     private String image;
     private String specialite;
 
-    @OneToMany(mappedBy = "professeur")
+    @OneToMany(mappedBy = "professeur", fetch = FetchType.LAZY)
+    @JsonManagedReference
+
     private List<ElementModule> elements;
 
     public Professeur(Long code, String nom, String prenom, String username, String password, String image,

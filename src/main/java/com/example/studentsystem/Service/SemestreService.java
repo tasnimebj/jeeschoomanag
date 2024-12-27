@@ -1,5 +1,6 @@
 package com.example.studentsystem.Service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +27,15 @@ public class SemestreService {
     }
 
     // Ajouter ou mettre à jour un semestre
+    @Transactional
+
     public Semestre saveOrUpdateSemestre(Semestre semestre) {
         return semestreRepository.save(semestre);
     }
 
     // Supprimer un semestre par ID
+    @Transactional
+
     public void deleteSemestre(Long id) {
         semestreRepository.deleteById(id);
     }

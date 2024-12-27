@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,13 +16,14 @@ public class Semestre {
     private Long id;
     private String nom;
 
-    @OneToMany(mappedBy = "semestre")
-    @JsonIgnore // Prevents cyclic references during serialization
+
+    @OneToMany(mappedBy = "semestre", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // Prevents cyclic references during serialization
 
     private List<Module> modules;
 
-    @OneToMany(mappedBy = "semestre")
-    @JsonIgnore // Prevents cyclic references during serialization
+    @OneToMany(mappedBy = "semestre", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // Prevents cyclic references during serialization
 
     private List<Etudiant> etudiants;
 

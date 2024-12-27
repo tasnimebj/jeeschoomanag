@@ -18,7 +18,7 @@ public class ProfesseurController {
     @Autowired
     private ProfesseurService professeurService;
 
-    // Récupérer tous les professeurs
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<Professeur>> getAllProfesseurs() {
         List<Professeur> professeurs = professeurService.getAllProfesseurs();
@@ -30,6 +30,29 @@ public class ProfesseurController {
     public ResponseEntity<Professeur> getProfesseurByCode(@PathVariable Long code) {
         Optional<Professeur> professeur = professeurService.getProfesseurByCode(code);
         return professeur.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    @PutMapping("/{code}")
+    public ResponseEntity<Professeur> updateProfesseur(@PathVariable Long code, @RequestBody Professeur professeur) {
+        // Retrieve the existing Professeur to check if it exists
+        Optional<Professeur> existingProfesseur = professeurService.getProfesseurByCode(code);
+
+        if (existingProfesseur.isPresent()) {
+            Professeur updatedProfesseur = existingProfesseur.get();
+            // Update the fields from the request body
+            updatedProfesseur.setNom(professeur.getNom());
+            updatedProfesseur.setPrenom(professeur.getPrenom());
+            updatedProfesseur.setUsername(professeur.getUsername());
+            updatedProfesseur.setPassword(professeur.getPassword());
+            updatedProfesseur.setImage(professeur.getImage());
+            updatedProfesseur.setSpecialite(professeur.getSpecialite());
+            updatedProfesseur.setElements(professeur.getElements());
+
+            // Save the updated Professeur
+            Professeur savedProfesseur = professeurService.saveOrUpdateProfesseur(updatedProfesseur);
+            return ResponseEntity.ok(savedProfesseur);
+        } else {
+            return ResponseEntity.notFound().build(); // If the Professeur is not found
+        }
     }
 
     // Ajouter ou mettre à jour un professeur

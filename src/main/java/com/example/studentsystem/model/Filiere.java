@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,12 +20,12 @@ public class Filiere {
     private String nomFiliere;
 
     @OneToMany(mappedBy = "filiere")
-    @JsonIgnore // Prevents cyclic references during serialization
+    @JsonManagedReference // Prevents cyclic references during serialization
 
     private List<Etudiant> etudiants;
 
     @OneToMany(mappedBy = "filiere")
-    @JsonIgnore // Prevents cyclic references during serialization
+    @JsonManagedReference // Prevents cyclic references during serialization
 
     private List<Module> module;
 

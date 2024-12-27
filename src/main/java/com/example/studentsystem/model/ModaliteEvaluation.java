@@ -3,6 +3,7 @@ package com.example.studentsystem.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,8 @@ public class ModaliteEvaluation {
         private double coefficient;
 
         @OneToMany(mappedBy = "modalite")
+        @JsonManagedReference
+
         private List<NoteElement> notes;
 
         public ModaliteEvaluation() {

@@ -26,10 +26,6 @@ public class AdministrateurController {
     @Autowired
     private AdministrateurService AdminService;
 
-
-
-
-
     public AdministrateurController(AdministrateurService adminService) {
         this.AdminService = adminService;
     }

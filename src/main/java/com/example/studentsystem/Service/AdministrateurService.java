@@ -115,9 +115,6 @@ public class AdministrateurService  {
 
     }
 
-
-
-
     //save image
 
     public String saveImage(MultipartFile file) throws IOException {

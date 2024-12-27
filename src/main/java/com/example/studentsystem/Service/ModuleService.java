@@ -3,6 +3,7 @@ package com.example.studentsystem.Service;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ public class ModuleService {
     private ModuleRepository moduleRepository;
 
     // Create or Update a Module
+    @Transactional
+
     public ResponseEntity<Module> saveModule(Module module) {
         Optional<Module> existantModul=moduleRepository.findByNomModuleAndFiliereIdAndSemestreId(module.getNomModule(),
                 module.getFiliere().getId(),module.getSemestre().getId());
@@ -40,6 +43,8 @@ public class ModuleService {
     }
 
     // Delete a Module by ID
+    @Transactional
+
     public void deleteModule(Long id) {
         moduleRepository.deleteById(id);
     }

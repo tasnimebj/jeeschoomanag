@@ -1,10 +1,9 @@
 package com.example.studentsystem.model;
-
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
 @Entity
 @Table
 public class ElementModule {
@@ -17,13 +16,19 @@ public class ElementModule {
 
     @ManyToOne
     @JoinColumn(name="module_id")
+    @JsonBackReference  // Prevents infinite recursion
+
     private Module module;
 
     @ManyToOne
     @JoinColumn(name="professeur_id")
+    @JsonBackReference
+
     private Professeur professeur;
 
     @OneToMany(mappedBy = "element")
+    @JsonManagedReference // Prevents cyclic references during serialization
+
     private List<NoteElement> notes;
 
     public ElementModule() {

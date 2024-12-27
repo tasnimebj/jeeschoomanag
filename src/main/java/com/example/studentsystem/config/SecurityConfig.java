@@ -1,48 +1,41 @@
 package com.example.studentsystem.config;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static org.springframework.security.config.Customizer.withDefaults;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // Use the updated configuration API with `authorizeHttpRequests`
         http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for testing purposes (not recommended in production)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/api/**").authenticated() // Protect API endpoints
-                        .anyRequest().permitAll() // Allow other requests
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/api/**").permitAll()  // Adjust the paths accordingly
+                        .anyRequest().authenticated()
                 )
-                .httpBasic(withDefaults()); // Enable HTTP Basic Authentication
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()));
+
         return http.build();
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.withUsername("admin")
-                        .password(passwordEncoder().encode("adminpass"))
-                        .roles("ADMIN")
-                        .build()
-        );
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
-
 }

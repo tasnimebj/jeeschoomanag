@@ -3,7 +3,9 @@ package com.example.studentsystem.model;
 import java.util.List;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,21 +25,21 @@ public class Module {
     private String nomModule;
 
     @ManyToOne
-    @JsonIgnore // Prevents cyclic references during serialization
 
     @JoinColumn(name="semestre_id")
+    @JsonBackReference  // Prevents infinite recursion by not serializing the 'Filiere' object in 'Module'
 
     private Semestre semestre;
 
     @ManyToOne
-    @JsonIgnore // Prevents cyclic references during serialization
 
     @JoinColumn(name="Filiere_id")
+    @JsonBackReference  // Prevents infinite recursion by not serializing the 'Filiere' object in 'Module'
 
     private Filiere filiere;
 
     @OneToMany(mappedBy = "module")
-    @JsonIgnore // Prevents cyclic references during serialization
+    @JsonManagedReference  // Ensures the list of ElementModules is serialized
 
     private List<ElementModule> elements;
 

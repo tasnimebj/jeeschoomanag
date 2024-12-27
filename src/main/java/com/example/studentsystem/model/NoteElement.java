@@ -1,5 +1,6 @@
 package com.example.studentsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -15,16 +16,22 @@ public class NoteElement {
 
         @ManyToOne
         @JoinColumn(name="element_id")
+        @JsonBackReference  // Prevents infinite recursion by not serializing the 'Filiere' object in 'Module'
+
         private ElementModule element;
 
         @ManyToOne
         @JoinColumn(name="etudiant_id")
+        @JsonBackReference  // Prevents infinite recursion by not serializing the 'Filiere' object in 'Module'
+
         private Etudiant etudiant;
 
         private double noteElement;
 
         @ManyToOne
         @JoinColumn(name="modalite_id")
+        @JsonBackReference
+
         private ModaliteEvaluation modalite;
 
 
