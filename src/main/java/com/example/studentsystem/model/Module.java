@@ -4,7 +4,6 @@ import java.util.List;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,7 +40,7 @@ public class Module {
     @OneToMany(mappedBy = "module")
     @JsonManagedReference  // Ensures the list of ElementModules is serialized
 
-    private List<ElementModule> elements;
+    private List<Element> elements;
 
 
 
@@ -49,14 +48,14 @@ public class Module {
         // TODO Auto-generated constructor stub
     }
 
-    public Module(String nomModule, Semestre semestre, List<ElementModule> elements,Filiere filiere) {
+    public Module(String nomModule, Semestre semestre, List<Element> elements, Filiere filiere) {
         this.nomModule = nomModule;
         this.semestre = semestre;
         this.elements = elements;
         this.filiere=filiere;
     }
 
-    public Module(Long codeModule, String nomModule, Semestre semestre, List<ElementModule> elements,Filiere filiere) {
+    public Module(Long codeModule, String nomModule, Semestre semestre, List<Element> elements, Filiere filiere) {
         this.codeModule = codeModule;
         this.nomModule = nomModule;
         this.semestre = semestre;
@@ -104,11 +103,11 @@ public class Module {
         this.semestre = semestre;
     }
 
-    public List<ElementModule> getElements() {
+    public List<Element> getElements() {
         return elements;
     }
 
-    public void setElements(List<ElementModule> elements) {
+    public void setElements(List<Element> elements) {
         this.elements = elements;
     }
 

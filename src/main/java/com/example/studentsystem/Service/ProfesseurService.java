@@ -8,35 +8,39 @@ import org.springframework.stereotype.Service;
 
 import com.example.studentsystem.model.Professeur;
 import com.example.studentsystem.Repository.ProfesseurRepository;
-
 @Service
 public class ProfesseurService {
 
     @Autowired
     private ProfesseurRepository professeurRepository;
 
-    // Récupérer tous les professeurs
     public List<Professeur> getAllProfesseurs() {
         return professeurRepository.findAll();
     }
 
-    // Récupérer un professeur par code
-    public Optional<Professeur> getProfesseurByCode(Long code) {
-        return professeurRepository.findById(code);
+    public Professeur addProfesseur(Professeur newProfesseur) {
+        return professeurRepository.save(newProfesseur);
     }
 
-    // Ajouter ou mettre à jour un professeur
-    public Professeur saveOrUpdateProfesseur(Professeur professeur) {
-        return professeurRepository.save(professeur);
+    public Professeur updateProfesseur(String code, Professeur updatedProfesseur) {
+        Optional<Professeur> existingProfesseur = professeurRepository.findById(Long.valueOf(code));
+        if (existingProfesseur.isPresent()) {
+            Professeur prof = existingProfesseur.get();
+            prof.setNom(updatedProfesseur.getNom());
+            prof.setPrenom(updatedProfesseur.getPrenom());
+            prof.setUsername(updatedProfesseur.getUsername());
+            prof.setSpecialite(updatedProfesseur.getSpecialite());
+            return professeurRepository.save(prof);
+        }
+        return null;
     }
 
-    // Supprimer un professeur par code
-    public void deleteProfesseur(long code) {
-        professeurRepository.deleteById(code);
-    }
-
-    // Récupérer un professeur par nom d'utilisateur
-    public Professeur getProfesseurByNomUtilisateur(String nomUtilisateur) {
-        return professeurRepository.findByUsername(nomUtilisateur);
+    public void deleteProfesseur(String code) {
+        professeurRepository.deleteById(Long.valueOf(code));
     }
 }
+
+
+
+
+

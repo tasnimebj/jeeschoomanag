@@ -1,13 +1,13 @@
 package com.example.studentsystem.model;
+
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
 @Entity
 @Table
-public class ElementModule {
-
+public class Element {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idElement;
@@ -16,25 +16,21 @@ public class ElementModule {
 
     @ManyToOne
     @JoinColumn(name="module_id")
-    @JsonBackReference  // Prevents infinite recursion
-
     private Module module;
+    @JsonBackReference
 
     @ManyToOne
     @JoinColumn(name="professeur_id")
-    @JsonBackReference
-
     private Professeur professeur;
 
     @OneToMany(mappedBy = "element")
-    @JsonManagedReference // Prevents cyclic references during serialization
-
     private List<NoteElement> notes;
 
-    public ElementModule() {
+    public Element() {
+        // TODO Auto-generated constructor stub
     }
 
-    public ElementModule(Long idElement, String nomElement, double coefficient, Module module, Professeur professeur,
+    public Element(Long idElement, String nomElement, double coefficient, Module module, Professeur professeur,
                    List<NoteElement> notes) {
         this.idElement = idElement;
         this.nomElement = nomElement;
@@ -44,7 +40,7 @@ public class ElementModule {
         this.notes = notes;
     }
 
-    public ElementModule(String nomElement, double coefficient, Module module, Professeur professeur,
+    public Element(String nomElement, double coefficient, Module module, Professeur professeur,
                    List<NoteElement> notes) {
         this.nomElement = nomElement;
         this.coefficient = coefficient;
@@ -54,7 +50,7 @@ public class ElementModule {
     }
 
 
-    public ElementModule(String nomElement, double coefficient) {
+    public Element(String nomElement, double coefficient) {
         super();
         this.nomElement = nomElement;
         this.coefficient = coefficient;

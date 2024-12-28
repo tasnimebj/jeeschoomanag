@@ -1,6 +1,6 @@
 package com.example.studentsystem.Service;
 
-import com.example.studentsystem.model.ElementModule;
+import com.example.studentsystem.model.Element;
 import com.example.studentsystem.Repository.ElementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,23 +15,23 @@ public class ElementService {
     private ElementRepository elementRepository;
 
     // Get all elements
-    public List<ElementModule> getAllElements() {
+    public List<Element> getAllElements() {
         return elementRepository.findAll();
     }
 
     // Get element by ID
-    public Optional<ElementModule> getElementById(Long id) {
+    public Optional<Element> getElementById(Long id) {
         return elementRepository.findById(id);
     }
 
     // Create a new element
-    public ElementModule createElement(ElementModule element) {
+    public Element createElement(Element element) {
 
         return elementRepository.save(element);
     }
 
     // Update an existing element
-    public ElementModule updateElement(Long id, ElementModule element) {
+    public Element updateElement(Long id, Element element) {
         if (elementRepository.existsById(id)) {
             element.setIdElement(id);
             return elementRepository.save(element);

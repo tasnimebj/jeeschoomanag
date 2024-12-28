@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,33 +17,28 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.studentsystem.model.Administrateur;
 import com.example.studentsystem.Service.AdministrateurService;
-
-
-
 @RestController
 @RequestMapping(path="/Administrateur")
 public class AdministrateurController {
 
     @Autowired
-    private AdministrateurService AdminService;
+    private AdministrateurService adminService;
 
-    public AdministrateurController(AdministrateurService adminService) {
-        this.AdminService = adminService;
-    }
-    @PostMapping("login")
+    @PostMapping("/Administrateur/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody Administrateur administrateur) {
-        return AdminService.validateAdmin(administrateur);
+        return adminService.validateAdmin(administrateur);
     }
 
     @PostMapping(path="Add")
-    public ResponseEntity<String> addNewstudent( @RequestParam("username") String nomUtilisateur, @RequestParam("password") String motDePasse, @RequestParam(value = "image", required = false) MultipartFile imageFile) throws IOException {
-
-        return this.AdminService.SaveAdministrateur(nomUtilisateur, motDePasse, imageFile);
+    public ResponseEntity<String> addNewAdmin(@RequestParam("username") String nomUtilisateur,
+                                              @RequestParam("password") String motDePasse) {
+        return this.adminService.saveAdministrateur(nomUtilisateur, motDePasse);
     }
 
-    @PutMapping(path="Update")
-    public void UpdateAdministrateur(@PathVariable("AdminId") Long AdminId,@RequestParam(required=false) String nomUtilisateur, @RequestParam(required=false) String motDePasse,@RequestParam(required=false) String image) {
-        this.AdminService.UpdateAdministrateur(AdminId,nomUtilisateur,motDePasse,image);
-
+    @PutMapping(path="Update/{AdminId}")
+    public void updateAdministrateur(@PathVariable("AdminId") Long adminId,
+                                     @RequestParam(required = false) String nomUtilisateur,
+                                     @RequestParam(required = false) String motDePasse) {
+        this.adminService.updateAdministrateur(adminId, nomUtilisateur, motDePasse);
     }
 }

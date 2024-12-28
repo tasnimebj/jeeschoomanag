@@ -1,6 +1,6 @@
 package com.example.studentsystem.controller;
 
-import com.example.studentsystem.model.ElementModule;
+import com.example.studentsystem.model.Element;
 import com.example.studentsystem.Service.ElementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,28 +19,28 @@ public class ElementController {
 
     // Get all elements
     @GetMapping
-    public List<ElementModule> getAllElements() {
+    public List<Element> getAllElements() {
         return elementService.getAllElements();
     }
 
     // Get element by ID
     @GetMapping("/{id}")
-    public ResponseEntity<ElementModule> getElementById(@PathVariable Long id) {
-        Optional<ElementModule> element = elementService.getElementById(id);
+    public ResponseEntity<Element> getElementById(@PathVariable Long id) {
+        Optional<Element> element = elementService.getElementById(id);
         return element.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Create a new element
     @PostMapping
-    public ResponseEntity<ElementModule> createElement(@RequestBody ElementModule element) {
-        ElementModule createdElement = elementService.createElement(element);
+    public ResponseEntity<Element> createElement(@RequestBody Element element) {
+        Element createdElement = elementService.createElement(element);
         return new ResponseEntity<>(createdElement, HttpStatus.CREATED);
     }
 
     // Update an existing element
     @PutMapping("/{id}")
-    public ResponseEntity<ElementModule> updateElement(@PathVariable Long id, @RequestBody ElementModule element) {
-        ElementModule updatedElement = elementService.updateElement(id, element);
+    public ResponseEntity<Element> updateElement(@PathVariable Long id, @RequestBody Element element) {
+        Element updatedElement = elementService.updateElement(id, element);
         return updatedElement != null ? ResponseEntity.ok(updatedElement) : ResponseEntity.notFound().build();
     }
 

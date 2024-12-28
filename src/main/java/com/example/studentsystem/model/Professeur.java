@@ -3,64 +3,58 @@ package com.example.studentsystem.model;
 import java.util.List;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Professeur")
-
 public class Professeur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long code;
+    private String code;
     private String nom;
     private String prenom;
     private String username;
-    private String password;
-    private String image;
     private String specialite;
 
-    @OneToMany(mappedBy = "professeur", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "professeur")
+    private List<Element> elements;
 
-    private List<ElementModule> elements;
-
-    public Professeur(Long code, String nom, String prenom, String username, String password, String image,
-                      String specialite, List<ElementModule> elements) {
+    public Professeur(Long code, String nom, String prenom, String username,
+                      String specialite, List<Element> elements) {
         super();
-        this.code = code;
+        this.code = String.valueOf(code);
         this.nom = nom;
         this.prenom = prenom;
         this.username = username;
-        this.password = password;
-        this.image = image;
+
         this.specialite = specialite;
         this.elements = elements;
     }
 
-    public Professeur(String nom, String prenom, String username, String password, String image, String specialite,
-                      List<ElementModule> elements) {
+    public Professeur(String nom, String prenom, String username,String specialite,
+                      List<Element> elements) {
         super();
         this.nom = nom;
         this.prenom = prenom;
         this.username = username;
-        this.password = password;
-        this.image = image;
+
         this.specialite = specialite;
         this.elements = elements;
     }
 
-    public Professeur(String nom, String prenom, String username, String password, String image, String specialite) {
+    public Professeur(String nom, String prenom, String username, String specialite) {
         super();
         this.nom = nom;
         this.prenom = prenom;
         this.username = username;
-        this.password = password;
-        this.image = image;
+
         this.specialite = specialite;
     }
 
@@ -68,11 +62,11 @@ public class Professeur {
         super();
     }
 
-    public Long getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Long code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -100,41 +94,11 @@ public class Professeur {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getSpecialite() {
         return specialite;
     }
 
     public void setSpecialite(String specialite) {
         this.specialite = specialite;
-    }
+    }}
 
-    public List<ElementModule> getElements() {
-        return elements;
-    }
-
-    public void setElements(List<ElementModule> elements) {
-        this.elements = elements;
-    }
-
-
-
-
-
-
-}
