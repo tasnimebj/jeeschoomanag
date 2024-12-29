@@ -22,6 +22,7 @@ public class Professeur {
     private String prenom;
     private String username;
     private String specialite;
+    private String password;  // Add password field
 
     @OneToMany(mappedBy = "professeur")
     private List<Element> elements;
@@ -60,6 +61,13 @@ public class Professeur {
 
     public Professeur() {
         super();
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCode() {

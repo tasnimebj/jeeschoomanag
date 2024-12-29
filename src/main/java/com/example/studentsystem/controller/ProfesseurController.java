@@ -27,13 +27,11 @@ public class ProfesseurController {
     }
 
     // Add a new professor
-
     @PostMapping
     public Professeur addProfesseur(@RequestBody Professeur newProfesseur) {
         return professeurService.addProfesseur(newProfesseur);
     }
 
-    // Update a professor
     @PutMapping("/{code}")
     public Professeur updateProfesseur(@PathVariable String code, @RequestBody Professeur updatedProfesseur) {
         return professeurService.updateProfesseur(code, updatedProfesseur);

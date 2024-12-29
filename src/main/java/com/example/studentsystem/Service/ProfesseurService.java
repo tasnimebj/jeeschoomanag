@@ -19,6 +19,9 @@ public class ProfesseurService {
     }
 
     public Professeur addProfesseur(Professeur newProfesseur) {
+        // Hash the password before saving (optional but recommended)
+        String hashedPassword = hashPassword(newProfesseur.getPassword());
+        newProfesseur.setPassword(hashedPassword);
         return professeurRepository.save(newProfesseur);
     }
 
@@ -30,13 +33,18 @@ public class ProfesseurService {
             prof.setPrenom(updatedProfesseur.getPrenom());
             prof.setUsername(updatedProfesseur.getUsername());
             prof.setSpecialite(updatedProfesseur.getSpecialite());
+            prof.setPassword(updatedProfesseur.getPassword()); // Update password
             return professeurRepository.save(prof);
         }
         return null;
     }
-
     public void deleteProfesseur(String code) {
         professeurRepository.deleteById(Long.valueOf(code));
+    }
+    // Helper method to hash the password
+    private String hashPassword(String password) {
+        // Use a proper hashing mechanism (e.g., BCrypt)
+        return password;  // For simplicity, this is just a placeholder
     }
 }
 
