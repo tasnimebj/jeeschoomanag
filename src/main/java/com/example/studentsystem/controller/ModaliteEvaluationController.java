@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,17 @@ public class ModaliteEvaluationController {
     public ResponseEntity<ModaliteEvaluation> getModaliteById(@PathVariable Long id) {
         Optional<ModaliteEvaluation> modalite = modaliteEvaluationService.getModaliteById(id);
         return modalite.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ModaliteEvaluation> updateEvaluationMode(@PathVariable Long id, @RequestBody ModaliteEvaluation evaluationMode) {
+        ModaliteEvaluation updatedMode = modaliteEvaluationService.update(id, evaluationMode);
+
+        if (updatedMode != null) {
+            return ResponseEntity.ok(updatedMode);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     // Ajouter ou mettre à jour une modalité
