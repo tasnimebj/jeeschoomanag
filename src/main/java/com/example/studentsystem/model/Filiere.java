@@ -3,29 +3,21 @@ package com.example.studentsystem.model;
 import java.util.List;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
 @Table
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "elementModules"})
-
 public class Filiere {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomFiliere;
 
     @OneToMany(mappedBy = "filiere")
-    @JsonManagedReference // Prevents cyclic references during serialization
 
     private List<Etudiant> etudiants;
 
     @OneToMany(mappedBy = "filiere")
-    @JsonManagedReference // Prevents cyclic references during serialization
 
     private List<Module> module;
 

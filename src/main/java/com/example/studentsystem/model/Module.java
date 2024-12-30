@@ -3,8 +3,6 @@ package com.example.studentsystem.model;
 import java.util.List;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,28 +15,22 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Module {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codeModule;
     private String nomModule;
 
     @ManyToOne
-
     @JoinColumn(name="semestre_id")
-    @JsonBackReference  // Prevents infinite recursion by not serializing the 'Filiere' object in 'Module'
 
     private Semestre semestre;
 
     @ManyToOne
-
     @JoinColumn(name="Filiere_id")
-    @JsonBackReference  // Prevents infinite recursion by not serializing the 'Filiere' object in 'Module'
 
     private Filiere filiere;
 
     @OneToMany(mappedBy = "module")
-    @JsonManagedReference  // Ensures the list of ElementModules is serialized
 
     private List<Element> elements;
 
@@ -48,14 +40,14 @@ public class Module {
         // TODO Auto-generated constructor stub
     }
 
-    public Module(String nomModule, Semestre semestre, List<Element> elements, Filiere filiere) {
+    public Module(String nomModule, Semestre semestre, List<Element> elements,Filiere filiere) {
         this.nomModule = nomModule;
         this.semestre = semestre;
         this.elements = elements;
         this.filiere=filiere;
     }
 
-    public Module(Long codeModule, String nomModule, Semestre semestre, List<Element> elements, Filiere filiere) {
+    public Module(Long codeModule, String nomModule, Semestre semestre, List<Element> elements,Filiere filiere) {
         this.codeModule = codeModule;
         this.nomModule = nomModule;
         this.semestre = semestre;
