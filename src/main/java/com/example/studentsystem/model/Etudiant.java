@@ -47,7 +47,6 @@ public class Etudiant {
     }
 
 
-
     public Etudiant(Long codeEtudiant, String nomEtudiant, String prenomEtudiant) {
         super();
         this.codeEtudiant = codeEtudiant;
