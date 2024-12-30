@@ -39,4 +39,19 @@ public class ModaliteEvaluationService {
     public ModaliteEvaluation getModaliteByType(String typeModalite) {
         return modaliteEvaluationRepository.findByTypeModalite(typeModalite);
     }
+    public ModaliteEvaluation update(Long id, ModaliteEvaluation evaluationMode) {
+        Optional<ModaliteEvaluation> existingModalite = modaliteEvaluationRepository.findById(id);
+
+        if (existingModalite.isPresent()) {
+            ModaliteEvaluation modalite = existingModalite.get();
+            modalite.setTypeModalite(evaluationMode.getTypeModalite());
+            modalite.setCoefficient(evaluationMode.getCoefficient());
+            // Other fields can be updated similarly if needed
+
+            return modaliteEvaluationRepository.save(modalite);
+        } else {
+            return null; // Or handle this case more appropriately
+        }
+    }
+
 }

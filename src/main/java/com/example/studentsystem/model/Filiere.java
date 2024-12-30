@@ -7,56 +7,29 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 
 @Entity
 @Table
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "elementModules"})
-
 public class Filiere {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nomFiliere;
 
     @OneToMany(mappedBy = "filiere")
-    @JsonManagedReference // Prevents cyclic references during serialization
-
     private List<Etudiant> etudiants;
 
     @OneToMany(mappedBy = "filiere")
-    @JsonManagedReference // Prevents cyclic references during serialization
-
     private List<Module> module;
 
-    public Filiere() {
-        // TODO Auto-generated constructor stub
-    }
-
-    public Filiere(Long id, String nomFiliere, List<Etudiant> etudiants, List<Module> module) {
-        this.id = id;
-        this.nomFiliere = nomFiliere;
-        this.etudiants = etudiants;
-        this.module = module;
-    }
-
-    public Filiere(String nomFiliere, List<Etudiant> etudiants, List<Module> module) {
-        this.nomFiliere = nomFiliere;
-        this.etudiants = etudiants;
-        this.module = module;
-    }
-
-
+    public Filiere() {}
 
     public Filiere(Long id, String nomFiliere) {
-        super();
         this.id = id;
-        this.nomFiliere = nomFiliere;
-    }
-
-
-
-    public Filiere(String nomFiliere) {
         this.nomFiliere = nomFiliere;
     }
 
@@ -91,7 +64,4 @@ public class Filiere {
     public void setModule(List<Module> module) {
         this.module = module;
     }
-
-
-
 }

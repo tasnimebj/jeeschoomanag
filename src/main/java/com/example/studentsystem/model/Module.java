@@ -32,8 +32,8 @@ public class Module {
 
     @ManyToOne
 
-    @JoinColumn(name="Filiere_id")
-    @JsonBackReference  // Prevents infinite recursion by not serializing the 'Filiere' object in 'Module'
+    @JoinColumn(name="filiere_id")
+    @JsonBackReference("filiere-module")
 
     private Filiere filiere;
 

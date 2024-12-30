@@ -1,46 +1,53 @@
 package com.example.studentsystem.Service;
+import com.example.studentsystem.dto.FiliereDTO;
+import com.example.studentsystem.mapper.FiliereMapper;
 import com.example.studentsystem.model.Filiere;
 import com.example.studentsystem.Repository.FiliereRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FiliereService {
 
-    @Autowired
-    private FiliereRepository filiereRepository;
+    private final FiliereRepository filiereRepository;
+    private final FiliereMapper filiereMapper;
 
-    public List<Filiere> getAllFilieres() {
-        return filiereRepository.findAll();
+    public FiliereService(FiliereRepository filiereRepository, FiliereMapper filiereMapper) {
+        this.filiereRepository = filiereRepository;
+        this.filiereMapper = filiereMapper;
     }
 
-    public Optional<Filiere> getFiliereById(Long id) {
-        return filiereRepository.findById(id);
+    public List<FiliereDTO> getAllFilieres() {
+        List<Filiere> filieres = filiereRepository.findAll();
+        return filieres.stream()
+                .map(filiereMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Filiere createFiliere(Filiere filiere) {
+    public Filiere createFiliere(FiliereDTO filiereDTO) {
+        Filiere filiere = filiereMapper.toEntity(filiereDTO);
         return filiereRepository.save(filiere);
     }
-    @Transactional
+    public void deleteFiliere(Long id) {
+        // Check if the Filiere exists before trying to delete it
+        if (!filiereRepository.existsById(id)) {
+            throw new RuntimeException("Filiere not found with id: " + id);
+        }
 
-    public Filiere updateFiliere(Long id, Filiere filiere) {
+        // Delete the Filiere by id
+        filiereRepository.deleteById(id);
+    }
+    public Filiere updateFiliere(Long id, FiliereDTO filiereDTO) {
         if (filiereRepository.existsById(id)) {
+            Filiere filiere = filiereMapper.toEntity(filiereDTO);
             filiere.setId(id);
             return filiereRepository.save(filiere);
         }
-        return null; // Return null if not found
-    }
-    @Transactional
-
-    public boolean deleteFiliere(Long id) {
-        if (filiereRepository.existsById(id)) {
-            filiereRepository.deleteById(id);
-            return true;
-        }
-        return false; // Return false if not found
+        return null; // or throw an exception
     }
 }
